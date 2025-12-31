@@ -53,6 +53,55 @@ This project investigates the efficiency of **Automatic Parallelization** on mod
 
 ---
 
+## 🧠 Performance Model and Theory
+
+The analysis is based on standard metrics from high-performance computing (HPC) to evaluate parallel scalability and resource utilization.
+
+### Speedup
+
+Speedup measures how much faster a parallel program executes compared to its sequential version:
+
+$$
+S(p) = \frac{T_1}{T_p}
+$$
+
+where:
+- $T_1$ is the execution time using a single thread
+- $T_p$ is the execution time using $p$ threads
+
+---
+
+### Efficiency
+
+Efficiency measures how effectively the available processing resources are utilized:
+
+$$
+E(p) = \frac{S(p)}{p}
+$$
+
+Efficiency interpretation:
+- **$E(p) \approx 1.0$** → near-ideal scaling with minimal overhead  
+- **$E(p) < 1.0$** → performance limited by synchronization, scheduling, or memory bottlenecks  
+- **$E(p) > 1.0$** → super-linear speedup, typically caused by cache locality effects  
+
+---
+
+### Amdahl’s Law
+
+Amdahl’s Law defines the theoretical upper bound on achievable speedup:
+
+$$
+S_{\text{max}}(p) = \frac{1}{f + \frac{1 - f}{p}}
+$$
+
+where:
+- $f$ is the fraction of the program that must execute sequentially
+- $p$ is the number of parallel threads
+
+Amdahl’s Law assumes fixed memory behavior and uniform execution costs.  
+Modern multicore systems violate this assumption due to hierarchical caches and improved data locality, which explains the observed **super-linear speedup** in some benchmarks.
+
+
 ## 🛠 Benchmarks Implemented
 
 | Benchmark | Description | Challenge Addressed |
